@@ -3,12 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add cool name for the project</title>
+    <title>QuickCanvas</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h2>Hi, this is Ojas!</h2>
-    <ul></ul>
-    <script src="script.js"></script>
-    <script src="document.js"></script>
+    <span>Enjoy your QuickCanvas!</span>
+    <div class="tool-bar">
+      <!-- Adding all the tool bar tools and elements -->
+      <div class="cross">Cross</div>
+      <div class="tool-bar-tools">
+        <div class="tool" id="black-pencil">
+          <img src="./Icons/Black_Pencil.svg" class="tool-image" />
+        </div>
+        <div class="tool" id="eraser">
+          <img src="./Icons/Eraser.svg" class="tool-image" />
+        </div>
+        <div class="tool" id="addStickyNote">
+          <img src="./Icons/StickyNote.svg" class="tool-image" />
+        </div>
+        <div class="tool" id="imageUpload">
+          <img src="./Icons/Photo.svg" class="tool-image" />
+        </div>
+        <div class="tool" id="download">
+          <img src="./Icons/Download.svg" class="tool-image" />
+        </div>
+        <div class="tool" id="undo">
+          <img src="./Icons/Undo.svg" class="tool-image" />
+        </div>
+        <div class="tool" id="redo">
+          <img src="./Icons/Redo.svg" class="tool-image" />
+        </div>
+        <div class="tool" id="trash">
+          <img src="./Icons/TrashCan.svg" class="tool-image" />
+        </div>
+      </div>
+    </div>
+    <div class="canvas">
+      <!-- the canvas tag will help us draw on a web page -->
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <script src="tools.js"></script>
   </body>
 </html>

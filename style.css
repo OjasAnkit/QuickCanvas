@@ -1,0 +1,21 @@
+body {
+  margin: 0px;
+}
+/* A * is an universal selector, it selects every element in HTML */
+* {
+  box-sizing: border-box;
+}
+
+/* to access a class of html use the dot (.) operator */
+.tool-image {
+  height: 4rem;
+}
+
+/* by default the child divs are shown horizontally, if we give the display as flex, then they will be shown vertically */
+.tool-bar-tools {
+  display: flex;
+}
+.tool-bar {
+  display: flex;
+  justify-content: center;
+}
