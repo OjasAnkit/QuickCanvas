@@ -47,6 +47,13 @@ body {
   );
   cursor: default;
 }
+.pen-cursor {
+  display: none;
+}
+
+.eraser-cursor {
+  display: none;
+}
 
 .canvas.pen {
   cursor: url("/Icons/pen-cursor.png"), auto;
