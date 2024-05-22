@@ -1,5 +1,12 @@
 body {
   margin: 0px;
+  background-size: 40px 40px;
+  background-image: radial-gradient(
+    circle,
+    #aaaaaa 1px,
+    rgba(192, 192, 192, 0) 1px
+  );
+  cursor: default;
 }
 
 /* A * is an universal selector, it selects every element in HTML */
@@ -38,15 +45,6 @@ body {
   border-color: white;
 }
 
-body {
-  background-size: 40px 40px;
-  background-image: radial-gradient(
-    circle,
-    #aaaaaa 1px,
-    rgba(192, 192, 192, 0) 1px
-  );
-  cursor: default;
-}
 .pen-cursor {
   display: none;
 }
