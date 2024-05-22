@@ -56,11 +56,11 @@ body {
 }
 
 .canvas.pen {
-  cursor: url("/Icons/pen-cursor.png"), auto;
+  cursor: URL("./Icons/pen-cursor.png"), auto;
 }
 
 .canvas.eraser {
-  cursor: url("/Icons/eraser-cursor.png"), auto;
+  cursor: URL("./Icons/eraser-cursor.png"), auto;
 }
 
 .canvas.default {
