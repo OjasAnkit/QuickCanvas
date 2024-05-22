@@ -141,10 +141,6 @@ function createOuterSticky() {
   close.setAttribute("class", "close");
   minimize.setAttribute("class", "minimize");
 
-  // adding x and min
-  minimize.innerText = "min";
-  close.innerText = "x";
-
   // creating the tree structure
   sticky.appendChild(stickyNavigation);
   stickyNavigation.appendChild(minimize);
@@ -223,6 +219,7 @@ function uploadImage() {
     console.log(inputTag.files[0].name);
     let data = inputTag.files[0]; // accessing the image that was uploaded (it is present at the 0 index)
     let img = document.createElement("img");
+    img.class = "img";
     let file_url = URL.createObjectURL(data); // getting the base 64 url for the image that was uploaded
     img.src = file_url; //assigning the source of the img as the base 64 url of the uploaded image
 

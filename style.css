@@ -23,34 +23,11 @@ body {
   gap: 2rem;
 }
 
-.sticky {
-  height: 10rem;
-  /* 1 rem = 16px */
-  width: 6rem;
-  position: absolute;
-  left: 40vw;
-  top: 20vw;
-}
-
-.sticky-navigation {
-  border: 1px solid black;
-  height: 20%;
-  background-color: aquamarine;
-  display: flex;
-  justify-content: right;
-  gap: 1rem;
-}
-
-.text-area {
-  height: 80%;
-  width: 100%;
-}
-
 .input-tag {
   display: none;
 }
 
-.uploaded-img {
-  height: 80%;
-  width: 100%;
+.title {
+  font-family: "Courier New", Courier, monospace;
+  font-size: larger;
 }
