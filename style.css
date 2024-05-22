@@ -1,6 +1,7 @@
 body {
   margin: 0px;
 }
+
 /* A * is an universal selector, it selects every element in HTML */
 * {
   box-sizing: border-box;
@@ -23,11 +24,12 @@ body {
 }
 
 .sticky {
-  height: 10rem; /* 1 rem = 16px */
+  height: 10rem;
+  /* 1 rem = 16px */
   width: 6rem;
   position: absolute;
   left: 40vw;
-  top: 40vw;
+  top: 20vw;
 }
 
 .sticky-navigation {
@@ -40,6 +42,15 @@ body {
 }
 
 .text-area {
+  height: 80%;
+  width: 100%;
+}
+
+.input-tag {
+  display: none;
+}
+
+.uploaded-img {
   height: 80%;
   width: 100%;
 }

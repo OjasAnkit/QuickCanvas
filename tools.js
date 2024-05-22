@@ -1,3 +1,5 @@
+// ************************* Initializing canvas and variables ************************* //
+
 // insider querySelector to select a class use dot(.) and for an ID use #
 
 // getting the tool bar
@@ -22,9 +24,13 @@ function toolSelect() {
   console.log("you selected a tool");
 }
 
-//  fetching the id of the tool element that was clicked
+// ************************* Getting the tool selected by the user & calling functions ************************* //
+
+let undoStack = [];
+let redoStack = [];
 let currentTool = "black-pencil";
 
+//  fetching the id of the tool element that was clicked
 for (let i = 0; i < toolsArr.length; i++) {
   toolsArr[i].addEventListener("click", function (e) {
     const toolSelected = toolsArr[i].id;
@@ -37,26 +43,45 @@ for (let i = 0; i < toolsArr.length; i++) {
     } else if (toolSelected == "eraser") {
       currentTool = "eraser";
       tool.strokeStyle = "white";
-      tool.lineWidth = "10";
+      tool.lineWidth = "15";
       drawWithPencil();
     } else if (toolSelected == "addStickyNote") {
-      currentTool = "sticky-tool";
+      currentTool = "addStickyNote";
       createSticky();
     } else if (toolSelected == "imageUpload") {
+      currentTool = "imageUpload";
+      uploadImage();
     } else if (toolSelected == "download") {
+      currentTool = "download";
+      downloadFile();
     } else if (toolSelected == "undo") {
+      currentTool = "undo";
+      undoFunction();
     } else if (toolSelected == "redo") {
+      currentTool = "redo";
+      redoFunction();
     } else if (toolSelected == "trash") {
+      currentTool = "trash";
+
+      // clearing out the canvas
       tool.clearRect(0, 0, canvas.width, canvas.height);
+
+      // checking if there are any sticky elements to clear
+      let sticky = document.getElementsByClassName("sticky");
+      while (sticky[0]) {
+        sticky[0].parentNode.removeChild(sticky[0]);
+      }
     }
   });
 }
 
-// adding the draw functionality for pencil tool
-// to implement pencil:
-// mouse pressed on canvas => start point (coordinates)
-// mouse lifted from canvas => end point (coordinates)
+// ************************* Defining tool functionalities ************************* //
+
 function drawWithPencil() {
+  // to implement pencil:
+  // mouse pressed on canvas => start point (coordinates)
+  // mouse lifted from canvas => end point (coordinates)
+
   let drawingFlag = false;
 
   canvas.addEventListener("mousedown", function (e) {
@@ -66,6 +91,13 @@ function drawWithPencil() {
     drawingFlag = true;
     tool.beginPath();
     tool.moveTo(startX, startY);
+
+    let pointHistory = {
+      x: startX,
+      y: e.clientY - toolBar.getBoundingClientRect().height,
+      desc: "md",
+    };
+    undoStack.push(pointHistory);
   });
 
   canvas.addEventListener("mousemove", function (e) {
@@ -75,6 +107,13 @@ function drawWithPencil() {
 
     tool.lineTo(endX, endY);
     tool.stroke();
+
+    let pointHistory = {
+      x: endX,
+      y: e.clientY - toolBar.getBoundingClientRect().height,
+      desc: "mm",
+    };
+    undoStack.push(pointHistory);
   });
 
   canvas.addEventListener("mouseup", function (e) {
@@ -88,20 +127,19 @@ function drawWithPencil() {
   });
 }
 
-function createSticky() {
+function createOuterSticky() {
   // creating the structure for sticky notes
   let sticky = document.createElement("div");
   let stickyNavigation = document.createElement("div");
   let minimize = document.createElement("div");
   let close = document.createElement("div");
-  let textArea = document.createElement("textarea");
-
-  let isMinimized = false;
 
   // adding class for styling
   sticky.setAttribute("class", "sticky");
   stickyNavigation.setAttribute("class", "sticky-navigation");
-  textArea.setAttribute("class", "text-area");
+
+  close.setAttribute("class", "close");
+  minimize.setAttribute("class", "minimize");
 
   // adding x and min
   minimize.innerText = "min";
@@ -109,21 +147,15 @@ function createSticky() {
 
   // creating the tree structure
   sticky.appendChild(stickyNavigation);
-  sticky.appendChild(textArea);
   stickyNavigation.appendChild(minimize);
   stickyNavigation.appendChild(close);
 
   // adding sticky to page
   document.body.appendChild(sticky);
 
-  // adding close and minimize div functionality
+  // adding close div functionality
   close.addEventListener("click", function () {
     sticky.remove();
-  });
-
-  minimize.addEventListener("click", function () {
-    textArea.style.display = isMinimized == true ? "block" : "none"; // if minimized -> maximize, if maximized -> minimize
-    isMinimized = !isMinimized;
   });
 
   // adding the functionality for moving the sticky note around
@@ -158,9 +190,112 @@ function createSticky() {
   stickyNavigation.addEventListener("mouseup", function (e) {
     isMouseDown = false;
   });
+
+  return sticky;
 }
 
-// ***** Personal Notes and Comments *******
+function createSticky() {
+  let isMinimized = false;
+
+  let sticky = createOuterSticky();
+  let minimize = sticky.querySelector(".minimize");
+  let textArea = document.createElement("textarea");
+  textArea.setAttribute("class", "text-area");
+  sticky.appendChild(textArea);
+
+  minimize.addEventListener("click", function () {
+    textArea.style.display = isMinimized == true ? "block" : "none"; // if minimized -> maximize, if maximized -> minimize
+    isMinimized = !isMinimized;
+  });
+}
+
+function uploadImage() {
+  // whenever the user clicks the upload button this function will be invoked.
+  // Inside this fn we have defined the input tag to be input element from HTML,
+  // and we have added the command to click on the input button
+
+  let inputTag = document.querySelector(".input-tag");
+  console.log("Inside upload image function");
+  inputTag.click();
+
+  // checking for when the user uploads a file
+  inputTag.addEventListener("change", function () {
+    console.log(inputTag.files[0].name);
+    let data = inputTag.files[0]; // accessing the image that was uploaded (it is present at the 0 index)
+    let img = document.createElement("img");
+    let file_url = URL.createObjectURL(data); // getting the base 64 url for the image that was uploaded
+    img.src = file_url; //assigning the source of the img as the base 64 url of the uploaded image
+
+    img.setAttribute("class", "uploaded-img");
+    let sticky = createOuterSticky();
+    let minimize = document.querySelector(".minimize");
+    sticky.appendChild(img);
+    let isMinimized = false;
+
+    minimize.addEventListener("click", function () {
+      img.style.display = isMinimized == true ? "block" : "none"; // if minimized -> maximize, if maximized -> minimize
+      isMinimized = !isMinimized;
+    });
+  });
+}
+
+function downloadFile() {
+  // creating anchor element
+  let a = document.createElement("a");
+
+  // making it a download anchor element, and setting the file name for the downloaded file
+  a.download = "file.png";
+
+  // convert board to base64 URL
+  let urlBoard = canvas.toDataURL("image/jpeg;base64");
+
+  //  set href of anchor as url
+  a.href = urlBoard;
+
+  // triggering download
+  a.click();
+
+  // removing anchor
+  a.remove();
+}
+
+function redraw() {
+  for (let i = 0; i < undoStack.length; i++) {
+    let { x, y, desc } = undoStack[i];
+    if (desc == "md") {
+      tool.beginPath();
+      tool.moveTo(x, y);
+    } else if (desc == "mm") {
+      tool.lineTo(x, y);
+      tool.stroke();
+    }
+  }
+}
+
+function undoFunction() {
+  // we will basically clear the whole canvas and then redraw the entire thing just without the last point,
+  // we will keep popping things whenever the undo button is hit until the stack becomes upto
+
+  if (undoStack.length > 0) {
+    tool.clearRect(0, 0, canvas.width, canvas.height);
+    redoStack.push(undoStack.pop());
+
+    // redrawing the canvas
+    redraw();
+  }
+}
+
+function redoFunction() {
+  if (redoStack.length > 0) {
+    tool.clearRect(0, 0, canvas.width, canvas.height);
+    undoStack.push(redoStack.pop());
+
+    // redrawing the canvas
+    redraw();
+  }
+}
+
+// ***** Personal Notes and Comments ******* //
 
 // selecting the starting path of drawing
 // tool.beginPath(); // this is to begin drawing on canvas, this is MANDATORY
@@ -176,3 +311,5 @@ function createSticky() {
 // tool.lineTo(567, 453);
 // tool.lineTo(400, 650);
 // tool.stroke();
+
+// for undo we can use a stack. There is no undo functionality given by the canvas
