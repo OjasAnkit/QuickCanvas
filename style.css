@@ -10,6 +10,9 @@ body {
 /* to access a class of html use the dot (.) operator */
 .tool-image {
   height: 4rem;
+  background-color: white;
+  border: 5rem;
+  border-color: white;
 }
 
 /* by default the child divs are shown horizontally, if we give the display as flex, then they will be shown vertically */
@@ -21,6 +24,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 2rem;
+  /* background-color: white; */
 }
 
 .input-tag {
@@ -30,4 +34,28 @@ body {
 .title {
   font-family: "Courier New", Courier, monospace;
   font-size: larger;
+  border: 5rem;
+  border-color: white;
+}
+
+body {
+  background-size: 40px 40px;
+  background-image: radial-gradient(
+    circle,
+    #aaaaaa 1px,
+    rgba(192, 192, 192, 0) 1px
+  );
+  cursor: default;
+}
+
+.canvas.pen {
+  cursor: url("/Icons/pen-cursor.png"), auto;
+}
+
+.canvas.eraser {
+  cursor: url("/Icons/eraser-cursor.png"), auto;
+}
+
+.canvas.default {
+  cursor: default;
 }

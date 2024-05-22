@@ -8,6 +8,7 @@ const toolsArr = document.querySelectorAll(".tool");
 
 // loading the canvas element from HTML
 const canvas = document.querySelector("#canvas");
+const canvasClass = document.querySelector(".canvas");
 
 // assigning the height and width of the active window to the canvas. The inner height and inner width returns the height and width of the active window excluding the browser's user interface.
 canvas.height = window.innerHeight;
@@ -39,30 +40,36 @@ for (let i = 0; i < toolsArr.length; i++) {
       currentTool = "black-pencil";
       tool.strokeStyle = "black";
       tool.lineWidth = "1";
+      setCursor("pen");
       drawWithPencil();
     } else if (toolSelected == "eraser") {
       currentTool = "eraser";
       tool.strokeStyle = "white";
       tool.lineWidth = "15";
+      setCursor("eraser");
       drawWithPencil();
     } else if (toolSelected == "addStickyNote") {
       currentTool = "addStickyNote";
       createSticky();
+      setCursor();
     } else if (toolSelected == "imageUpload") {
       currentTool = "imageUpload";
       uploadImage();
+      setCursor();
     } else if (toolSelected == "download") {
       currentTool = "download";
       downloadFile();
+      setCursor();
     } else if (toolSelected == "undo") {
       currentTool = "undo";
       undoFunction();
+      setCursor();
     } else if (toolSelected == "redo") {
       currentTool = "redo";
       redoFunction();
+      setCursor();
     } else if (toolSelected == "trash") {
       currentTool = "trash";
-
       // clearing out the canvas
       tool.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -71,6 +78,8 @@ for (let i = 0; i < toolsArr.length; i++) {
       while (sticky[0]) {
         sticky[0].parentNode.removeChild(sticky[0]);
       }
+
+      setCursor();
     }
   });
 }
@@ -290,6 +299,14 @@ function redoFunction() {
     // redrawing the canvas
     redraw();
   }
+}
+
+function setCursor(tool = "default") {
+  console.log("inside cursor fn : ", tool);
+  canvasClass.classList.remove("pen", "eraser", "default");
+  canvasClass.classList.add(tool);
+  console.log(canvasClass.classList);
+  return;
 }
 
 // ***** Personal Notes and Comments ******* //
