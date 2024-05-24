@@ -45,11 +45,11 @@ body {
   border-color: white;
 }
 
-.pen-cursor {
+.pen {
   display: none;
 }
 
-.eraser-cursor {
+.eraser {
   display: none;
 }
 
