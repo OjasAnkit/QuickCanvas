@@ -106,7 +106,8 @@ function drawWithPencil() {
       y: e.clientY - toolBar.getBoundingClientRect().height,
       desc: "md",
     };
-    undoStack.push(pointHistory);
+
+    if (currentTool == "black-pencil") undoStack.push(pointHistory);
   });
 
   canvas.addEventListener("mousemove", function (e) {
@@ -122,7 +123,7 @@ function drawWithPencil() {
       y: e.clientY - toolBar.getBoundingClientRect().height,
       desc: "mm",
     };
-    undoStack.push(pointHistory);
+    if (currentTool == "black-pencil") undoStack.push(pointHistory);
   });
 
   canvas.addEventListener("mouseup", function (e) {
