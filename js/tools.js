@@ -40,13 +40,13 @@ for (let i = 0; i < toolsArr.length; i++) {
       currentTool = "black-pencil";
       tool.strokeStyle = "black";
       tool.lineWidth = "1";
-      setCursor("pen");
+      setCursor("pen-cursor");
       drawWithPencil();
     } else if (toolSelected == "eraser") {
       currentTool = "eraser";
       tool.strokeStyle = "white";
       tool.lineWidth = "15";
-      setCursor("eraser");
+      setCursor("eraser-cursor");
       drawWithPencil();
     } else if (toolSelected == "addStickyNote") {
       currentTool = "addStickyNote";
@@ -303,7 +303,7 @@ function redoFunction() {
 
 function setCursor(tool = "default") {
   console.log("inside cursor fn : ", tool);
-  canvasClass.classList.remove("pen", "eraser", "default");
+  canvasClass.classList.remove("pen-cursor", "eraser-cursor", "default");
   canvasClass.classList.add(tool);
   console.log(canvasClass.classList);
   return;

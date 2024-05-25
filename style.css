@@ -53,14 +53,14 @@ body {
   display: none;
 }
 
-.canvas.pen {
-  cursor: URL("./Icons/pen-cursor.png"), auto;
-}
-
-.canvas.eraser {
-  cursor: URL("./Icons/eraser-cursor.png"), auto;
-}
-
 .canvas.default {
-  cursor: default;
+  cursor: default; /* Default cursor */
+}
+
+.canvas.pen-cursor {
+  cursor: url("./Icons/pen-cursor.png"), auto; /* Pen cursor */
+}
+
+.canvas.eraser-cursor {
+  cursor: url("./Icons/eraser-cursor.png"), auto; /* Eraser cursor */
 }
