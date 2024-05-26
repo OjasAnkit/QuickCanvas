@@ -1,2 +1,2 @@
-# QuickCanvas: A realtime-whiteboard-application
+# QuickCanvas: a realtime-whiteboard-application
  Realtime Whiteboard Application
